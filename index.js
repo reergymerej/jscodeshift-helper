@@ -23,23 +23,36 @@ function describeCollection(collection) {
   var types = collection.getTypes();
   var methods = {
     at: 'Returns a new collection containing only the element at position index. In case of a negative index, the element is taken from the end.',
+    childElements: '',
+    childNodes: '',
+    closest: '',
+    closestScope: '',
     filter: 'Returns a new collection containing the nodes for which the callback returns true.',
+    findJSXElements: '',
+    findJSXElementsByModuleName: '',
+    findVariableDeclarators: '',
     forEach: 'Executes callback for each node/path in the collection.',
     get: 'Proxies to NodePath#get of the first path.',
     getAST: '',
     getTypes: '',
+    getVariableDeclarators: '',
+    insertAfter: '',
+    insertBefore: '',
     isOfType: 'Returns true if this collection has the type `type`.',
     map: 'Executes the callback for every path in the collection and returns a new collection from the return values (which must be paths). The callback can return null to indicate to exclude the element from the new collection. If an array is returned, the array will be flattened into the result collection.',
     nodes: 'Returns an array of AST nodes in this collection.',
     paths: '',
+    remove: '',
+    renameTo: '',
+    replaceWith: '',
     size: 'Returns the number of elements in this collection.',
     toSource: 'Returns pretty printed JS code.',
   };
 
   var description = 'A `Collection` is a generic collection of `NodePath`s. It only has a generic API to access and process the elements of the list. It doesn\'t know anything about AST types.';
   var references = [
-    'https://github.com/facebook/jscodeshift/blob/master/src/Collection.js',
     'https://github.com/facebook/jscodeshift/wiki/jscodeshift-Documentation#collections',
+    'https://github.com/facebook/jscodeshift/blob/master/src/Collection.js',
   ];
 
   return [
@@ -87,12 +100,13 @@ function describeNodePath(nodePath) {
 function describeNode(node) {
   var description = 'A `Node` (aka AST Node) is what you see in the AST Explorer.  This is the raw data about the code.';
 
-  var props = Object.keys(node).map(function (prop) {
+  var props = {};
+
+  Object.keys(node).map(function (prop) {
     var value = node[prop];
-    return prop + ': ' + 
-      (typeof value === 'string' || typeof value === 'number')
-        ? value
-        : typeof value;
+    props[prop] = (typeof value === 'string' || typeof value === 'number')
+      ? value
+      : typeof value;
   });
 
   var references = [
