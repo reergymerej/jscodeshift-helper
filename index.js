@@ -1,16 +1,3 @@
-// function getProps(item) {
-//   return Object.keys(item).sort();
-// }
-
-// function getProtoProps(instance, functions = false) {
-//   return getProps(instance.constructor.prototype)
-//     .filter(prop => functions 
-//       ? typeof instance.constructor.prototype[prop] === 'function'
-//       : typeof instance.constructor.prototype[prop] !== 'function'
-//     )
-//     .filter(prop => prop[0] !== '_');
-// }
-
 function printReferences(references) {
   return 'References:\n\t' + references.join('\n\t');
 }
@@ -22,6 +9,12 @@ function printDescription(description) {
 function printMethods(methods) {
   return 'Methods:\n\t' + Object.keys(methods).map(function (name) {
     return name + ' - ' + methods[name];
+  }).join('\n\t');
+}
+
+function printProps(props) {
+  return 'Properties:\n\t' + Object.keys(props).map(function (name) {
+    return name + ' - ' + props[name];
   }).join('\n\t');
 }
 
@@ -57,30 +50,39 @@ function describeCollection(collection) {
   ].join('\n\n');
 }
 
-// function describeNodePath(nodePath) {
-//   var description = 'The `NodePath` object passed to visitor methods is a wrapper around an AST node (aka `Node`), and it serves to provide access to the chain of ancestor objects (all the way back to the root of the AST) and scope information.\n\n'
-//     + 'Use nodePath.node or nodePath.value to get the raw AST node.\n\n'
-//     + 'Use nodePath.getValueProperty(\'foo\') to get the wrapped AST node\'s `foo` property as a raw AST node.\n\n'
-//     + 'Use nodePath.get(\'foo\') to get the wrapped AST node\'s `foo` property wrapped in another NodePath.\n\n'
-//     + 'API: https://github.com/benjamn/ast-types#nodepath.';
-//   var lines = [
-//     `\nThis is a \`NodePath\` wrapping a node of type "${ nodePath.node.type }."`,
-//     'Description:',
-//     description,    
-//   ];
+function describeNodePath(nodePath) {
+  var methods = {
+    canBeFirstInStatement: '',
+    firstInStatement: '',
+    getValueProperty: '',
+    needsParens: '',
+    prune: '',
+    replace: '',
+  };
 
-//   var props = [
-//     'node',
-//     'parent',
-//     'scope',
-//   ];
-//   var methods = getProtoProps(nodePath, true).sort();
+  var props = {
+    parent: 'The wrapped AST node\'s parent, wrapped in another `NodePath`.',
+    scope: 'Scope information about the wrapped AST node.',
+    node: 'The wrapped AST node.',
+    value: 'Same as #node',
+  };
 
-//   lines.push(`Props:\n\t${ props.join('\n\t') }`);
-//   lines.push(`Methods:\n\t${ methods.join('\n\t') }`);
+  var description = 'A `NodePath` (aka `Path`) wraps the actual AST node (aka `Node`) and provides information such as scope and hierarchical relationship that is not available when looking at the node in isolation.';
+  
+  var references = [
+    'https://github.com/facebook/jscodeshift/wiki/jscodeshift-Documentation#nodepaths',
+    'https://github.com/benjamn/ast-types#nodepath',
+    'https://github.com/benjamn/ast-types#scope',
+  ];
 
-//   return lines.join('\n\n');
-// }
+  return [
+    '\nThis is a `NodePath` wrapping a `Node` of type "' + nodePath.node.type + '".',
+    printDescription(description),    
+    printMethods(methods),
+    printProps(props),
+    printReferences(references),
+  ].join('\n\n');
+}
 
 // function describeNode(node) {
 //   var description = '`Node`s (aka AST Nodes) are what you see in the AST Explorer.  This is the raw data about the code.';

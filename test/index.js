@@ -9,4 +9,13 @@ Collection.prototype.getTypes = function () {
 };
 
 var collection = new Collection();
-app.describe(collection);
+// app.describe(collection);
+// ---------------------------------------
+
+function NodePath () {}
+NodePath.prototype.node = {
+  type: 'foo',
+};
+
+var nodePath = new NodePath();
+app.describe(nodePath);
