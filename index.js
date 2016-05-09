@@ -84,30 +84,33 @@ function describeNodePath(nodePath) {
   ].join('\n\n');
 }
 
-// function describeNode(node) {
-//   var description = '`Node`s (aka AST Nodes) are what you see in the AST Explorer.  This is the raw data about the code.';
-//   var lines = [
-//   `\nThis is a \`Node\` of type ${ node.type }.`,
-//     'Description:',
-//     description,    
-//   ];
+function describeNode(node) {
+  var description = 'A `Node` (aka AST Node) is what you see in the AST Explorer.  This is the raw data about the code.';
 
-//   var props = getProps(node).map(prop => {
-//     var value = node[prop];
-//     if (typeof value === 'string' || typeof value === 'number') {
-//       return `${ prop }: ${ value }`;
-//     } else {
-//       return `${ prop }: [${ typeof value }]`;
-//     }
-//   })
-//   lines.push(`Props:\n\t${ props.join('\n\t') }`);
+  var props = Object.keys(node).map(function (prop) {
+    var value = node[prop];
+    return prop + ': ' + 
+      (typeof value === 'string' || typeof value === 'number')
+        ? value
+        : typeof value;
+  });
 
-//   return lines.join('\n\n');
-// }
+  var references = [
+    'https://github.com/facebook/jscodeshift/wiki/jscodeshift-Documentation#node-1',
+    'http://astexplorer.net/',
+  ];
 
-// function describeGeneric(item) {
-//   return item;
-// }
+  return [
+    '\nThis is a `Node` of type "' + node.type + '."',
+    printDescription(description),    
+    printProps(props),
+    printReferences(references),
+  ].join('\n\n');
+}
+
+function describeGeneric(item) {
+  return item;
+}
 
 function describe(entity) {
   var description;
