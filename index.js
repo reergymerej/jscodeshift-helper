@@ -82,7 +82,7 @@ function describeNodePath(nodePath) {
     value: 'Same as #node',
   };
 
-  var description = 'A `NodePath` (aka `Path`) wraps the actual AST node (aka `Node`) and provides information such as scope and hierarchical relationship that is not available when looking at the node in isolation.';
+  var description = 'A `NodePath` (aka `Path`) wraps the actual AST node (aka `Node`) and provides information such as scope and hierarchical relationship that is not available when looking at the node in isolation.  To access the wrapped Node, use `.node` or `.value`.';
 
   var references = [
     'https://github.com/facebook/jscodeshift/wiki/jscodeshift-Documentation#nodepaths',
@@ -91,7 +91,7 @@ function describeNodePath(nodePath) {
   ];
 
   return [
-    '\nThis is a `NodePath` wrapping a `Node` of type "' + nodePath.node.type + '".',
+    '\nThis is a `NodePath` wrapping the `Node`:',
     util.inspect(nodePath.node),
     printDescription(description),
     printMethods(methods),
