@@ -1,3 +1,21 @@
+var util = require('util');
+
+var NODE_INSPECT_DEPTH = 2;
+
+function removeLocationData(node) {
+  var nodeWithoutLocationInfo = Object.assign({}, node);
+  delete nodeWithoutLocationInfo.loc;
+  delete nodeWithoutLocationInfo.start;
+  delete nodeWithoutLocationInfo.end;
+
+  return nodeWithoutLocationInfo;
+}
+
+function inspectNode(node) {
+  var nodeWithoutLocationInfo = removeLocationData(node);
+  return util.inspect(nodeWithoutLocationInfo, { depth: NODE_INSPECT_DEPTH });
+}
+
 function printReferences(references) {
   return 'References:\n\t' + references.join('\n\t');
 }
@@ -57,7 +75,7 @@ function describeCollection(collection) {
 
   return [
     '\nThis is a Collection with ' + size + ' item(s) of types: ' + types.join(', ') + '.',
-    printDescription(description),    
+    printDescription(description),
     printMethods(methods),
     printReferences(references),
   ].join('\n\n');
@@ -80,8 +98,8 @@ function describeNodePath(nodePath) {
     value: 'Same as #node',
   };
 
-  var description = 'A `NodePath` (aka `Path`) wraps the actual AST node (aka `Node`) and provides information such as scope and hierarchical relationship that is not available when looking at the node in isolation.';
-  
+  var description = 'A `NodePath` (aka `Path`) wraps the actual AST node (aka `Node`) and provides information such as scope and hierarchical relationship that is not available when looking at the node in isolation.  To access the wrapped Node, use `.node` or `.value`.';
+
   var references = [
     'https://github.com/facebook/jscodeshift/wiki/jscodeshift-Documentation#nodepaths',
     'https://github.com/benjamn/ast-types#nodepath',
@@ -89,8 +107,9 @@ function describeNodePath(nodePath) {
   ];
 
   return [
-    '\nThis is a `NodePath` wrapping a `Node` of type "' + nodePath.node.type + '".',
-    printDescription(description),    
+    '\nThis is a `NodePath` wrapping the `Node`:',
+    inspectNode(nodePath.node),
+    printDescription(description),
     printMethods(methods),
     printProps(props),
     printReferences(references),
@@ -100,15 +119,6 @@ function describeNodePath(nodePath) {
 function describeNode(node) {
   var description = 'A `Node` (aka AST Node) is what you see in the AST Explorer.  This is the raw data about the code.';
 
-  var props = {};
-
-  Object.keys(node).map(function (prop) {
-    var value = node[prop];
-    props[prop] = (typeof value === 'string' || typeof value === 'number')
-      ? value
-      : typeof value;
-  });
-
   var references = [
     'https://github.com/facebook/jscodeshift/wiki/jscodeshift-Documentation#node-1',
     'http://astexplorer.net/',
@@ -116,14 +126,17 @@ function describeNode(node) {
 
   return [
     '\nThis is a `Node` of type "' + node.type + '."',
-    printDescription(description),    
-    printProps(props),
+    inspectNode(node),
+    printDescription(description),
     printReferences(references),
   ].join('\n\n');
 }
 
 function describeGeneric(item) {
-  return item;
+  return [
+    '\nThis is a generic object.',
+    util.inspect(item),
+  ].join('\n\n');
 }
 
 function describe(entity) {
