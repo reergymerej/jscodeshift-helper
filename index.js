@@ -1,3 +1,5 @@
+var util = require('util');
+
 function printReferences(references) {
   return 'References:\n\t' + references.join('\n\t');
 }
@@ -57,7 +59,7 @@ function describeCollection(collection) {
 
   return [
     '\nThis is a Collection with ' + size + ' item(s) of types: ' + types.join(', ') + '.',
-    printDescription(description),    
+    printDescription(description),
     printMethods(methods),
     printReferences(references),
   ].join('\n\n');
@@ -81,7 +83,7 @@ function describeNodePath(nodePath) {
   };
 
   var description = 'A `NodePath` (aka `Path`) wraps the actual AST node (aka `Node`) and provides information such as scope and hierarchical relationship that is not available when looking at the node in isolation.';
-  
+
   var references = [
     'https://github.com/facebook/jscodeshift/wiki/jscodeshift-Documentation#nodepaths',
     'https://github.com/benjamn/ast-types#nodepath',
@@ -90,7 +92,7 @@ function describeNodePath(nodePath) {
 
   return [
     '\nThis is a `NodePath` wrapping a `Node` of type "' + nodePath.node.type + '".',
-    printDescription(description),    
+    printDescription(description),
     printMethods(methods),
     printProps(props),
     printReferences(references),
@@ -116,14 +118,17 @@ function describeNode(node) {
 
   return [
     '\nThis is a `Node` of type "' + node.type + '."',
-    printDescription(description),    
+    printDescription(description),
     printProps(props),
     printReferences(references),
   ].join('\n\n');
 }
 
 function describeGeneric(item) {
-  return item;
+  return [
+    '\nThis is a generic object.',
+    util.inspect(item),
+  ].join('\n\n');
 }
 
 function describe(entity) {

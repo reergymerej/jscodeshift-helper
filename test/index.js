@@ -30,3 +30,14 @@ function Node () {
 
 var node = new Node();
 app.describe(node);
+// ---------------------------------------
+
+app.describe({
+  string: 'foo',
+  number: 99,
+  array: [],
+  object: {
+    foo: 'bar',
+    quux: '?',
+  },
+});

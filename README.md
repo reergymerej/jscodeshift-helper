@@ -1,4 +1,4 @@
-# jscodeshift-helper
+# jscodeshift-helper v1.1
 
 a utility to help you explore [jscodeshift][jscodeshift]
 
@@ -38,6 +38,10 @@ describe(something); // logs helpful info to the console
     References:
     	https://github.com/facebook/jscodeshift/wiki/jscodeshift-Documentation#node-1
     	http://astexplorer.net/
+
+## v1.1 Changes
+
+* describe generic objects
 
 
 [jscodeshift]: https://github.com/facebook/jscodeshift "jscodeshift"
