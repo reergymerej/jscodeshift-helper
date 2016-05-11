@@ -4,7 +4,7 @@
   "description": "a utility to help you explore jscodeshift",
   "main": "index.js",
   "scripts": {
-    "test": "node ./test"
+    "test": "jscodeshift -t ./test/transform.js ./test/input.js -d -p"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/reergymerej/jscodeshift-helper/issues"
   },
-  "homepage": "https://github.com/reergymerej/jscodeshift-helper#readme"
+  "homepage": "https://github.com/reergymerej/jscodeshift-helper#readme",
+  "devDependencies": {
+    "jscodeshift": "^0.3.20"
+  }
 }

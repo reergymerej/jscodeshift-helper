@@ -1,5 +1,21 @@
 var util = require('util');
 
+var NODE_INSPECT_DEPTH = 2;
+
+function removeLocationData(node) {
+  var nodeWithoutLocationInfo = Object.assign({}, node);
+  delete nodeWithoutLocationInfo.loc;
+  delete nodeWithoutLocationInfo.start;
+  delete nodeWithoutLocationInfo.end;
+
+  return nodeWithoutLocationInfo;
+}
+
+function inspectNode(node) {
+  var nodeWithoutLocationInfo = removeLocationData(node);
+  return util.inspect(nodeWithoutLocationInfo, { depth: NODE_INSPECT_DEPTH });
+}
+
 function printReferences(references) {
   return 'References:\n\t' + references.join('\n\t');
 }
@@ -92,7 +108,7 @@ function describeNodePath(nodePath) {
 
   return [
     '\nThis is a `NodePath` wrapping the `Node`:',
-    util.inspect(nodePath.node),
+    inspectNode(nodePath.node),
     printDescription(description),
     printMethods(methods),
     printProps(props),
@@ -110,7 +126,7 @@ function describeNode(node) {
 
   return [
     '\nThis is a `Node` of type "' + node.type + '."',
-    util.inspect(node),
+    inspectNode(node),
     printDescription(description),
     printReferences(references),
   ].join('\n\n');

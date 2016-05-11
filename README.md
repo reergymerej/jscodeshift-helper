@@ -13,7 +13,7 @@ npm i jscodeshift-helper
 ## Usage
 
 ```js
-var describe = require('jscodeshift-helper');
+var describe = require('jscodeshift-helper').describe;
 
 ...
 
@@ -22,22 +22,42 @@ describe(something); // logs helpful info to the console
 
 **Example Output**
 
-    This is a `Node` of type "Identifier."
+    This is a `Node` of type "ObjectExpression."
+
+    { type: 'ObjectExpression',
+      properties:
+       [ Node {
+           type: 'Property',
+           start: 14,
+           end: 20,
+           loc: [Object],
+           method: false,
+           shorthand: false,
+           computed: false,
+           key: [Object],
+           value: [Object],
+           kind: 'init',
+           decorators: null },
+         Node {
+           type: 'Property',
+           start: 24,
+           end: 62,
+           loc: [Object],
+           method: false,
+           shorthand: false,
+           computed: false,
+           key: [Object],
+           value: [Object],
+           kind: 'init',
+           decorators: null } ] }
 
     Description:
-    	A `Node` (aka AST Node) is what you see in the AST Explorer.  This is the raw data about the code.
-
-    Properties:
-    	type - Identifier
-    	start - 431
-    	end - 432
-    	loc - object
-    	name - fooski
-    	typeAnnotation - object
+        A `Node` (aka AST Node) is what you see in the AST Explorer.  This is the raw data about the code.
 
     References:
-    	https://github.com/facebook/jscodeshift/wiki/jscodeshift-Documentation#node-1
-    	http://astexplorer.net/
+        https://github.com/facebook/jscodeshift/wiki/jscodeshift-Documentation#node-1
+        http://astexplorer.net/
+
 
 ## v1.1 Changes
 
