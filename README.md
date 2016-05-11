@@ -22,7 +22,7 @@ describe(something); // logs helpful info to the console
 
 **Example Output**
 
-    This is a `Node` of type "ObjectExpression."
+    This is a `NodePath` wrapping the `Node`:
 
     { type: 'ObjectExpression',
       properties:
@@ -52,11 +52,26 @@ describe(something); // logs helpful info to the console
            decorators: null } ] }
 
     Description:
-        A `Node` (aka AST Node) is what you see in the AST Explorer.  This is the raw data about the code.
+        A `NodePath` (aka `Path`) wraps the actual AST node (aka `Node`) and provides information such as scope and hierarchical relationship that is not available when looking at the node in isolation.  To access the wrapped Node, use `.node` or `.value`.
+
+    Methods:
+        canBeFirstInStatement -
+        firstInStatement -
+        getValueProperty -
+        needsParens -
+        prune -
+        replace -
+
+    Properties:
+        parent - The wrapped AST node's parent, wrapped in another `NodePath`.
+        scope - Scope information about the wrapped AST node.
+        node - The wrapped AST node.
+        value - Same as #node
 
     References:
-        https://github.com/facebook/jscodeshift/wiki/jscodeshift-Documentation#node-1
-        http://astexplorer.net/
+        https://github.com/facebook/jscodeshift/wiki/jscodeshift-Documentation#nodepaths
+        https://github.com/benjamn/ast-types#nodepath
+        https://github.com/benjamn/ast-types#scope
 
 
 ## v1.1 Changes
