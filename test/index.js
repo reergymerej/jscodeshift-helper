@@ -41,3 +41,5 @@ app.describe({
     quux: '?',
   },
 });
+
+app.describe('hello');

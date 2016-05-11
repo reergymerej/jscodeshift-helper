@@ -42,6 +42,8 @@ describe(something); // logs helpful info to the console
 ## v1.1 Changes
 
 * describe generic objects
-
+* improve description of Node props
+* print inner Node props when describing NodePath
+* print Node props before description
 
 [jscodeshift]: https://github.com/facebook/jscodeshift "jscodeshift"

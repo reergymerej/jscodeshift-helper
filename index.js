@@ -102,15 +102,6 @@ function describeNodePath(nodePath) {
 function describeNode(node) {
   var description = 'A `Node` (aka AST Node) is what you see in the AST Explorer.  This is the raw data about the code.';
 
-  var props = {};
-
-  Object.keys(node).map(function (prop) {
-    var value = node[prop];
-    props[prop] = (typeof value === 'string' || typeof value === 'number')
-      ? value
-      : typeof value;
-  });
-
   var references = [
     'https://github.com/facebook/jscodeshift/wiki/jscodeshift-Documentation#node-1',
     'http://astexplorer.net/',
@@ -119,7 +110,7 @@ function describeNode(node) {
   return [
     '\nThis is a `Node` of type "' + node.type + '."',
     printDescription(description),
-    printProps(props),
+    util.inspect(node),
     printReferences(references),
   ].join('\n\n');
 }
