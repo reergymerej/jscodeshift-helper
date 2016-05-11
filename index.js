@@ -109,8 +109,8 @@ function describeNode(node) {
 
   return [
     '\nThis is a `Node` of type "' + node.type + '."',
-    printDescription(description),
     util.inspect(node),
+    printDescription(description),
     printReferences(references),
   ].join('\n\n');
 }
