@@ -15,6 +15,9 @@ app.describe(collection);
 function NodePath () {}
 NodePath.prototype.node = {
   type: 'foo',
+  bar: 1,
+  baz: [1,2,3],
+  quux: { foo: 1, bar: false, baz: null },
 };
 
 var nodePath = new NodePath();

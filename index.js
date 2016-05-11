@@ -92,6 +92,7 @@ function describeNodePath(nodePath) {
 
   return [
     '\nThis is a `NodePath` wrapping a `Node` of type "' + nodePath.node.type + '".',
+    util.inspect(nodePath.node),
     printDescription(description),
     printMethods(methods),
     printProps(props),
